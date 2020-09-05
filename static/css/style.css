@@ -17,19 +17,19 @@ body a{
 }
 @font-face {
     font-family: 'Lora-Regular';
-    src:url(../fonts/Lora-Regular.ttf) format('truetype');
+    src:url(/static/fonts/Lora-Regular.ttf) format('truetype');
 }
 @font-face {
     font-family: 'Muli-Regular';
-    src:url(../fonts/Muli-Regular.ttf) format('truetype');
+    src:url(/static/fonts/Muli-Regular.ttf) format('truetype');
 }
 @font-face {
     font-family: 'Lato-Regular';
-    src:url(../fonts/Lato-Regular.ttf) format('truetype');
+    src:url(/static/fonts/Lato-Regular.ttf) format('truetype');
 }
 @font-face {
     font-family: 'BreeSerif-Regular';
-    src:url(../fonts/BreeSerif-Regular.ttf) format('truetype');
+    src:url(/static/fonts/BreeSerif-Regular.ttf) format('truetype');
 }
 /*--starts-logo--*/
 .logo {
@@ -67,7 +67,7 @@ body a{
 	position: relative;
 }
 .search-bar input[type="submit"] {
-    background: url(../images/search.png)no-repeat 0px 0px;
+    background: url(/static/images/search.png)no-repeat 0px 0px;
     outline: none;
     -webkit-appearance: none;
     border: 0;
@@ -399,7 +399,7 @@ span.simpleCart_total {
   	text-decoration: none;
   	height: 30px;
   	width: 30px;
-  	background: transparent url("../images/arrow.png") no-repeat left top;
+  	background: transparent url("/static/images/arrow.png") no-repeat left top;
 	display: none;
 }
 .callbacks_nav:active {
@@ -638,7 +638,7 @@ figure.effect-bubba:hover p,figure.effect-bubba:hover h2 {
     font-family: 'BreeSerif-Regular';
 }
 .product-bottom h4 i {
-    background: url(../images/cart-2.png) no-repeat;
+    background: url(/static/images/cart-2.png) no-repeat;
     width: 20px;
     height: 15px;
     display: inline-block;
@@ -646,7 +646,7 @@ figure.effect-bubba:hover p,figure.effect-bubba:hover h2 {
     vertical-align: middle;
 }
 .product-left:hover .product-bottom h4 i{
-	background: url(../images/cart-3.png) no-repeat;
+	background: url(/static/images/cart-3.png) no-repeat;
 }
 .product-bottom {
     text-align: left;
@@ -736,7 +736,7 @@ a.mask {
     font-family: 'BreeSerif-Regular';
 }
 .infor-left ul li a span {
-    background: url(../images/s-icons.png) no-repeat;
+    background: url(/static/images/s-icons.png) no-repeat;
     width: 34px;
     height: 34px;
     display: inline-block;
@@ -1102,7 +1102,7 @@ a.mask {
 	left: 2px;
 	width: 10px;
 	height: 7px;
-	background: url(../images/tick.png) no-repeat;
+	background: url(/static/images/tick.png) no-repeat;
 	text-align: center;
 }
 .sky-form .radio input:checked + i:after,
@@ -1483,7 +1483,7 @@ a.mask {
 	padding:6em 0px;
 }
 .close1,.close2,.close3{
-	background: url('../images/close.png') no-repeat 0px 0px;
+	background: url('/static/images/close.png') no-repeat 0px 0px;
 	cursor: pointer;
 	width: 28px;
 	height: 28px;
@@ -1608,7 +1608,7 @@ ul.star-footer li {
 ul.star-footer li i {
     height: 16px;
     width: 16px;
-    background: url("../images/star.png") no-repeat;
+    background: url("/static/images/star.png") no-repeat;
     display: inline-block;
 }
 .review {

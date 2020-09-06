@@ -89,7 +89,7 @@
                     {% for item in watches %}
 					<div class="col-md-3 product-left">
 						<div class="product-main simpleCart_shelfItem">
-							<a href="{% url 'single' %}"class="mask"><img class="img-responsive zoom-img" src="{{ item.image }}" alt="" /></a>
+							<a href="{% url 'main:single' %}"class="mask"><img class="img-responsive zoom-img" src="{{ item.image }}" alt="" /></a>
 							<div class="product-bottom">
 								<h3>{{ item.name }}</h3>
 								<p>{{ item.shot_descr }}</p>

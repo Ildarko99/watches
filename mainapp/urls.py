@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 import mainapp.views as mainapp
 
+app_name = 'mainapp'
 
 urlpatterns = [
     path('', mainapp.index, name='index'),
@@ -25,5 +26,4 @@ urlpatterns = [
     path('products/', mainapp.products, name='products'),
     path('single/', mainapp.single, name='single'),
     path('blog/', mainapp.blog, name='blog'),
-    path('admin/', admin.site.urls, name='admin'),
 ]

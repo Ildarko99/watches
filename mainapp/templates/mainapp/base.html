@@ -66,7 +66,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="col-md-6 top-header-left">
 					<div class="cart box_1">
-						<a href="/checkout/">
+						<a href="{% url 'checkout' %}">
 							 <div class="total">
 								<span class="simpleCart_total"></span></div>
 								<img src="{% static 'images/cart-1.png' %}" alt="" />
@@ -92,11 +92,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-md-9 header-left">
 				<div class="top-nav">
 					<ul class="memenu skyblue"><li class="active"><a href="/">Home</a></li>
-						<li class="grid"><a href="/products/">Products</a>
+						<li class="grid"><a href="{% url 'products' %}">Products</a>
 
-						<li class="grid"><a href="/blog/">Blog</a>
+						<li class="grid"><a href="{% url 'blog' %}">Blog</a>
 						</li>
-						<li class="grid"><a href="/contact/">Contact</a>
+						<li class="grid"><a href="{% url 'contact' %}"">Contact</a>
 						</li>
 					</ul>
 				</div>

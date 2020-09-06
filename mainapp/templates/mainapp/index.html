@@ -85,65 +85,28 @@
 		<div class="container">
 			<div class="product-top">
 				<div class="product-one">
+                    {% if watches %}
+                    {% for item in watches %}
 					<div class="col-md-3 product-left">
 						<div class="product-main simpleCart_shelfItem">
-							<a href="/single/" class="mask"><img class="img-responsive zoom-img" src="{% static 'images/p-1.png' %}" alt="" /></a>
+							<a href="{% url 'single' %}"class="mask"><img class="img-responsive zoom-img" src="{{ item.image }}" alt="" /></a>
 							<div class="product-bottom">
-								<h3>Smart Watches</h3>
-								<p>Explore Now</p>
-								<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+								<h3>{{ item.name }}</h3>
+								<p>{{ item.shot_descr }}</p>
+								<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ {{ item.price }}</span></h4>
 							</div>
 							<div class="srch">
 								<span>-50%</span>
 							</div>
 						</div>
+
 					</div>
-					<div class="col-md-3 product-left">
-						<div class="product-main simpleCart_shelfItem">
-							<a href="/single/" class="mask"><img class="img-responsive zoom-img" src="{% static 'images/p-2.png' %}" alt="" /></a>
-							<div class="product-bottom">
-								<h3>Smart Watches</h3>
-								<p>Explore Now</p>
-								<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
-							</div>
-							<div class="srch">
-								<span>-50%</span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-left">
-						<div class="product-main simpleCart_shelfItem">
-							<a href="/single/" class="mask"><img class="img-responsive zoom-img" src="{% static 'images/p-3.png' %}"  alt="" /></a>
-							<div class="product-bottom">
-								<h3>Smart Watches</h3>
-								<p>Explore Now</p>
-								<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
-							</div>
-							<div class="srch">
-								<span>-50%</span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-left">
-						<div class="product-main simpleCart_shelfItem">
-							<a href="/single/" class="mask"><img class="img-responsive zoom-img" src="{% static 'images/p-4.png' %}" alt="" /></a>
-							<div class="product-bottom">
-								<h3>Smart Watches</h3>
-								<p>Explore Now</p>
-								<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
-							</div>
-							<div class="srch">
-								<span>-50%</span>
-							</div>
-						</div>
-					</div>
+                    {% endfor %}
+                    {% endif %}
+
 					<div class="clearfix"></div>
 				</div>
-				<div class="product-one">
-					<div class="col-md-3 product-left">
-					</div>
-					<div class="clearfix"></div>
-				</div>
+
 			</div>
 		</div>
 	</div>

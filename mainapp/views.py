@@ -18,3 +18,6 @@ def products(request):
 
 def single(request):
     return render(request, 'mainapp/single.html')
+
+def blog(request):
+    return render(request, 'mainapp/typo.html')

@@ -4,11 +4,15 @@
 
 <title>{{ 'Luxury Watches A Ecommerce Category Flat Bootstrap Resposive Website Template | Home :: w3layouts' }}</title>
 
-    {% block css %}
+    {% block bootstrap %}
 
     <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+
 <!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
 <script src="/static/js/jquery-1.11.0.min.js"></script>
+    {% endblock %}
+
+    {% block themes %}
 <!--Custom-Theme-files-->
 <!--theme-style-->
 <link href="/static/css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -18,16 +22,20 @@
 <meta name="keywords" content="Luxury Watches Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!--start-menu-->
+{% endblock %}
+
+    {% block startmenu %}
+    <!--start-menu-->
 <script src="/static/js/simpleCart.min.js"> </script>
 <link href="/static/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="/static/js/memenu.js"></script>
 <script>$(document).ready(function(){$(".memenu").memenu();});</script>
-<!--dropdown-->
-<script src="/static/js/jquery.easydropdown.js"></script>
-
     {% endblock %}
 
+    {% block js %}
+<!--dropdown-->
+<script src="/static/js/jquery.easydropdown.js"></script>
+    {% endblock %}
 
 </head>
 <body>
@@ -57,7 +65,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="col-md-6 top-header-left">
 					<div class="cart box_1">
-						<a href="checkout.html">
+						<a href="/checkout/">
 							 <div class="total">
 								<span class="simpleCart_total"></span></div>
 								<img src="/static/images/cart-1.png" alt="" />
@@ -73,7 +81,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!--top-header-->
 	<!--start-logo-->
 	<div class="logo">
-		<a href="index.html"><h1>Luxury Watches</h1></a>
+		<a href="/"><h1>Luxury Watches</h1></a>
 	</div>
 	<!--start-logo-->
 	<!--bottom-header-->
@@ -82,12 +90,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="header">
 				<div class="col-md-9 header-left">
 				<div class="top-nav">
-					<ul class="memenu skyblue"><li class="active"><a href="index.html">Home</a></li>
-						<li class="grid"><a href="products.html">Products</a>
+					<ul class="memenu skyblue"><li class="active"><a href="/">Home</a></li>
+						<li class="grid"><a href="/products/">Products</a>
 
-						<li class="grid"><a href="typo.html">Blog</a>
+						<li class="grid"><a href="/blog/">Blog</a>
 						</li>
-						<li class="grid"><a href="contact/">Contact</a>
+						<li class="grid"><a href="/contact/">Contact</a>
 						</li>
 					</ul>
 				</div>
@@ -107,7 +115,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 {% block container %}
     {# page unique content #}
     {% endblock %}
-
 
 	<!--information-starts-->
 	<div class="information">

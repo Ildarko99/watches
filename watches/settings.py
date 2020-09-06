@@ -125,3 +125,6 @@ STATIC_URL = '/static/'  #настройка для web, как это буде�
 STATICFILES_DIRS = (                    #настройка для локального использования, как это будет работать внутри
     os.path.join(BASE_DIR, 'static'),
 )
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

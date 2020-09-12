@@ -4,6 +4,8 @@ import json
 
 # Create your views here.
 # root is "mainapp/templates/" folder
+from mainapp.models import ProductCategory
+
 
 def index(request):
     watches = [
@@ -52,10 +54,11 @@ def checkout(request):
     return render(request, 'mainapp/checkout.html', context)
 
 def products(request):
-
+    categories = ProductCategory.objects.all()
     context = {
         'page_title': 'Luxury watches | Our watches',
-        'breadcrumbs_active': 'Products'
+        'breadcrumbs_active': 'Products',
+        'categories': categories,
     }
     return render(request, 'mainapp/products.html', context)
 

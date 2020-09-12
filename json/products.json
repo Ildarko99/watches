@@ -1,0 +1,42 @@
+[
+    {
+        "category": "men",
+        "name": "casio",
+        "brand": "casio",
+        "image": "media/products_images/abt-1.jpg",
+        "short_desc": "casio watch abt-1",
+        "description": "подойдет на каждый день",
+        "price": "298.5",
+        "quantity": "17"
+    },
+    {
+        "category": "women",
+        "name": "candino c-3",
+        "brand": "candino",
+        "image": "media/products_images/c-3.jpg",
+        "short_desc": "подойдет дамам",
+        "description": "подойдет на каждый день",
+        "price": "368.2",
+        "quantity": "21"
+    },
+    {
+        "category": "kids",
+        "name": "seiko",
+        "brand": "seiko",
+        "image": "media/products_images/p-3.jpg",
+        "short_desc": "использованы премиальные материалы",
+        "description": "для детей, стремящихся к лучшему",
+        "price": "157.99",
+        "quantity": "7"
+    },
+    {
+        "category": "pocket",
+        "name": "orient",
+        "brand": "orient",
+        "image": "media/products_images/abt-3.jpg",
+        "short_desc": "использованы премиальные материалы",
+        "description": "для джентельменов",
+        "price": "1150",
+        "quantity": "7"
+    }
+]

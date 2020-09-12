@@ -15,6 +15,7 @@ class Product(models.Model):
                                  on_delete=models.CASCADE,
                                  verbose_name='категория продукта')
     name = models.CharField('имя продукта', max_length=128)
+    brand = models.CharField('brand', max_length=128, default='None')
     image = models.ImageField(upload_to='products_images', blank=True)
     short_desc = models.CharField('краткое описание продукта', max_length=64, blank=True)
     description = models.TextField('описание продукта', blank=True)

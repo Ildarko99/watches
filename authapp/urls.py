@@ -13,20 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls.static import static
-
-from watches import settings
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path
+import authapp.views as authapp
 
-
+app_name = 'authapp'
 
 urlpatterns = [
+    path('login/', authapp.login, name='login'),
+    path('logout/', authapp.logout, name='logout'),
+    path('register/', authapp.register, name='register'),
 
-    path('', include('mainapp.urls', namespace='main')),
-    path('auth/', include('authapp.urls', namespace='auth')),
-
-    path('admin/', admin.site.urls, name='admin'),
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

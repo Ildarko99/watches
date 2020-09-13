@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import auth
+from django.urls import reverse
 
 from authapp.forms import MyAuthenticationForm
 
@@ -15,7 +16,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect(reverse('main:index'))
 
     elif request.method == 'GET':
         form = MyAuthenticationForm()
@@ -26,7 +27,8 @@ def login(request):
     return render(request, 'authapp/login.html', context)
 
 def logout(request):
-    pass
+    auth.logout(request)
+    return HttpResponseRedirect(reverse('main:index'))
 
 def register(request):
     pass

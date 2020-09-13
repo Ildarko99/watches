@@ -1,7 +1,9 @@
 {% extends 'authapp/base.html' %}
 
 {% block container %}
+
     <form class="form-horizontal" method="post">
+        {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" class="form-control" value="Войти">
     </form>

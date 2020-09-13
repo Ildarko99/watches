@@ -1,9 +1,15 @@
 from django.shortcuts import render
 
-# Create your views here.
+from authapp.forms import myAuthenticationForm
+
 
 def login(request):
-    pass
+    form = myAuthenticationForm()
+    context = {
+        'page_title': 'аутентификация',
+        'form': form
+    }
+    return render(request, 'authapp/login.html', context)
 
 def logout(request):
     pass

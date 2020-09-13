@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{{ page_title|default:'Luxury watches'|title }}</title>
+
+    {% block css %}
+
+    <link rel="stylesheet" href= "{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href= "{% static 'fonts/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% endblock %}
+{% block js %}
+    <!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
+    <script src="{% static 'js/jquery-3.2.1.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+{% endblock %}
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="login">
+            <div class="h2 text-center head">
+                Вход систему
+            </div>
+
+            {% block container %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

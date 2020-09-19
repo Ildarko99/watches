@@ -3,13 +3,12 @@ from django.shortcuts import render
 from django.contrib import auth
 from django.urls import reverse
 
-from authapp.forms import MyAuthenticationForm
+from authapp.forms import ShopUserAuthenticationForm, ShopUserRegisterForm, ShopUserProfileForm
 
 
 def login(request):
-    form = None
     if request.method == 'POST':
-        form = MyAuthenticationForm(data=request.POST)
+        form = ShopUserAuthenticationForm(data=request.POST)
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
@@ -17,9 +16,8 @@ def login(request):
             if user and user.is_active:
                 auth.login(request, user)
                 return HttpResponseRedirect(reverse('main:index'))
-
-    elif request.method == 'GET':
-        form = MyAuthenticationForm()
+    else:
+        form = ShopUserAuthenticationForm()
     context = {
         'page_title': 'аутентификация',
         'form': form
@@ -30,5 +28,30 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('main:index'))
 
-def register(request):
-    pass
+def user_register(request):
+    if request.method == 'POST':
+        user = ShopUserRegisterForm(request.POST, request.FILES)
+        if user.is_valid():
+            user.save()
+            return HttpResponseRedirect(reverse('authapp:login'))
+    else:
+        user = ShopUserRegisterForm()
+    context = {
+        'page_title': 'регистрация',
+        'form': user
+    }
+    return render(request, 'authapp/register.html', context)
+
+def user_profile(request):
+    if request.method == 'POST':
+        user = ShopUserProfileForm(request.POST, request.FILES, instance=request.user)
+        if user.is_valid():
+            user.save()
+            return HttpResponseRedirect(reverse('main:index'))
+    else:
+        user = ShopUserProfileForm(instance=request.user) #если в Джанго не передавать instance, то он будет пытаться создавать новый объект
+    context = {
+        'page_title': 'профиль',
+        'form': user
+    }
+    return render(request, 'authapp/profile.html', context)

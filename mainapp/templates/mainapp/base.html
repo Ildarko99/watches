@@ -65,14 +65,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				</div>
                 <div class="col-md-6 top-header-left">
-                    {% if user.is_authenthicated %}
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'auth:user_profile' %}">
+                                {{ user.first_name|default:'Пользователь' }}
+                            </a>
+                            {% endif %}
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'auth:logout' %}">Выход</a>
+                            {% else %}
+                            <a href="{% url 'auth:login' %}">Вход</a>
 
-                        <a href="{% url 'auth:logout' %}">Выход</a>
-                        {% else %}
-                        <a href="{% url 'auth:login' %}">Вход</a>
+                        {% endif %}
 
-                    {% endif %}
-					</div>
+                </div>
 				</div>
 				<div class="col-md-6 top-header-left">
 					<div class="cart box_1">

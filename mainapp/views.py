@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 import json
 
 
 # Create your views here.
 # root is "mainapp/templates/" folder
-from mainapp.models import ProductCategory
+from mainapp.models import ProductCategory, Product
+
+def get_menu():
+    return ProductCategory.objects.all()
 
 
 def index(request):
@@ -58,9 +61,25 @@ def products(request):
     context = {
         'page_title': 'Luxury watches | Our watches',
         'breadcrumbs_active': 'Products',
-        'categories': categories,
+        'categories': get_menu(),
     }
     return render(request, 'mainapp/products.html', context)
+
+def catalog(request, pk):
+    # try...
+    # category = ProductCategory.objects.get(pk=pk)
+    # except...
+    category = get_object_or_404(ProductCategory, pk=pk)
+    products = Product.objects.filter(category=category)
+    context = {
+        'page_title': 'Luxury watches | Products',
+        'categories': get_menu(),
+        'category': category,
+        'products': products,
+
+    }
+    return render(request, 'mainapp/catalog.html', context)
+
 
 def contact(request):
     context = {
@@ -82,3 +101,4 @@ def blog(request):
         'breadcrumbs_active': 'Blog'
     }
     return render(request, 'mainapp/typo.html', context)
+

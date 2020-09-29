@@ -81,7 +81,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="col-md-6 top-header-left">
 					<div class="cart box_1">
-						<a href="{% url 'main:checkout' %}">
+						<a href="{% url 'basket:basket' %}">
 							 <div class="total">
 								<span class="simpleCart_total"></span></div>
 								<img src="{% static 'images/cart-1.png' %}" alt="" />
@@ -96,9 +96,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 	<!--top-header-->
 	<!--start-logo-->
-	<div class="logo">
-		<a href="/"><h1>Luxury Watches</h1></a>
-	</div>
+{% block main_page_title %}
+{% endblock %}
 	<!--start-logo-->
 	<!--bottom-header-->
 	<div class="header-bottom">
@@ -128,9 +127,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 
+
 {% block container %}
-    {# page unique content #}
+    {% block main_title %}
+	<div class="logo">
+		<a href="/"><h1>Luxury Watches</h1></a>
+	</div>
     {% endblock %}
+{% endblock %}
 
 	<!--information-starts-->
 	<div class="information">

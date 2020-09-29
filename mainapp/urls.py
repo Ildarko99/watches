@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 import mainapp.views as mainapp
+import basketapp.views as basketapp
 
 app_name = 'mainapp'
 
@@ -24,6 +25,10 @@ urlpatterns = [
     path('checkout/', mainapp.checkout, name='checkout'),
     path('contact/', mainapp.contact, name='contact'),
     path('products/', mainapp.products, name='products'),
+
+    path('category/<int:pk>/products/', mainapp.catalog, name='catalog'),
+    # re_path(r'^category/(?P<pk>\d+)/products/$', mainapp.catalog, name='catalog'), как вариант через регулярки
+
     path('single/', mainapp.single, name='single'),
     path('blog/', mainapp.blog, name='blog'),
 ]

@@ -38,5 +38,15 @@
         "description": "для джентельменов",
         "price": "1150",
         "quantity": "7"
+    },
+    {
+        "category": "pocket",
+        "name": "orient",
+        "brand": "orient",
+        "image": "media/products_images/p-4.jpg",
+        "short_desc": "использованы премиальные материалы",
+        "description": "для джентельменов",
+        "price": "950",
+        "quantity": "3"
     }
 ]

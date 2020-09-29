@@ -1,5 +1,9 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
+
+{% block main_page_title %}
+
+{% endblock %}
 {% block container %}
 
     <!--banner-starts-->
@@ -93,7 +97,7 @@
 							<div class="product-bottom">
 								<h3>{{ item.name }}</h3>
 								<p>{{ item.shot_descr }}</p>
-								<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ {{ item.price }}</span></h4>
+								<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">{{ item.price }}</span></h4>
 							</div>
 							<div class="srch">
 								<span>-50%</span>

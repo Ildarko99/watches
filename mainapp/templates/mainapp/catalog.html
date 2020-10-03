@@ -1,6 +1,5 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
-
 {% block container %}
 
 <!--bottom-header-->
@@ -8,13 +7,13 @@
 	{% include 'mainapp/includes/inc__breadcrumbs.html' %}
 	<!--end-breadcrumbs-->
 {% block title %}
-            <div class="logo clearfix">
-                <h2>Продукты в категории {{ category.name|capfirst }}</h2>
-            </div>
+    <div class="logo clearfix">
+        <h2>Продукты в категории {{ category.name|capfirst }}</h2>
+    </div>
 {% endblock %}
 
 	<!--prdt-starts-->
-<div class="prdt">
+    <div class="prdt">
 		<div class="container">
 			<div class="prdt-top">
 				<div class="col-md-9 prdt-left">
@@ -26,7 +25,7 @@
                                     <div class="product-bottom">
                                         <h3>{{ product.name }}</h3>
                                         <p>{{ product.short_desc }}</p>
-                                        <h4><a class="item_add" href="#"><i></i></a> <span class="item_price">$ {{ product.price }}</span></h4>
+                                        <h4><a class="item_add" href="{% url 'basket:add' product.pk %}"><i></i></a> <span class="item_price">$ {{ product.price }}</span></h4>
                                     </div>
                                     <div class="srch srch1">
                                         <span>-50%</span>

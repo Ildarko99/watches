@@ -67,10 +67,15 @@ def products(request):
 
 def catalog(request, pk):
     # try...
-    # category = ProductCategory.objects.get(pk=pk)
+    #   category = ProductCategory.objects.get(pk=pk)
     # except...
-    category = get_object_or_404(ProductCategory, pk=pk)
-    products = Product.objects.filter(category=category)
+
+    if pk == 0:
+        category = {'pk': 0, 'name': 'все'}
+        products = Product.objects.all()
+    else:
+        category = get_object_or_404(ProductCategory, pk=pk)
+        products = Product.objects.filter(category=category)
     context = {
         'page_title': 'Luxury watches | Products',
         'categories': get_menu(),

@@ -1,11 +1,16 @@
 <div class="col-md-4">
     <ul>
-    {% for cat in categories %}
+        {% for cat in categories %}
+            <li>
+                <a href="{% url 'main:catalog' pk=cat.pk %}">
+                    {{ cat.name }}
+                </a>
+            </li>
+        {% endfor %}
         <li>
-            <a href="{% url 'main:catalog' pk=cat.pk %}">
-                {{ cat.name }}
+            <a href="{% url 'main:catalog' pk=0 %}">
+                Все
             </a>
         </li>
-    {% endfor %}
     </ul>
 </div>

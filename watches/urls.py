@@ -10,7 +10,7 @@ urlpatterns = [
 
     path('', include('mainapp.urls', namespace='main')),
     path('auth/', include('authapp.urls', namespace='auth')),
-    path('basket/', include('basketapp.urls', namespace='basket')),
+    path('basketapp/', include('basketapp.urls', namespace='basketapp')),
 
     path('admin/', admin.site.urls, name='admin'),
 ]

@@ -1,0 +1,75 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block container %}
+
+	<!--start-breadcrumbs-->
+	{% include 'mainapp/includes/inc__breadcrumbs.html' %}
+	<!--end-breadcrumbs-->
+	<!--start-ckeckout-->
+	<div class="ckeckout">
+		<div class="container">
+			<div class="ckeck-top heading">
+				<h2>CHECKOUT</h2>
+			</div>
+			<div class="ckeckout-top">
+                <div class="cart-items">
+                     <h3>My Shopping Bag</h3>
+                        <script>$(document).ready(function(c) {
+                            $('.close1').on('click', function(c){
+                                $('.cart-header').fadeOut('slow', function(c){
+                                    $('.cart-header').remove();
+                                });
+                                });
+                            });
+                       </script>
+                    <script>$(document).ready(function(c) {
+                            $('.close2').on('click', function(c){
+                                $('.cart-header1').fadeOut('slow', function(c){
+                                    $('.cart-header1').remove();
+                                });
+                                });
+                            });
+                       </script>
+                       <script>$(document).ready(function(c) {
+                            $('.close3').on('click', function(c){
+                                $('.cart-header2').fadeOut('slow', function(c){
+                                    $('.cart-header2').remove();
+                                });
+                                });
+                            });
+                       </script>
+
+                    <div class="in-check" >
+                        <ul class="unit">
+                            <li><span>Item</span></li>
+                            <li><span>Product Name</span></li>
+                            <li><span>Unit Price</span></li>
+                            <li><span>Delivery Details</span></li>
+                            <li> </li>
+                            <div class="clearfix"> </div>
+                        </ul>
+                        <ul class="cart-header">
+                            {% if basket_items %}
+                                {% for item in basket_items %}
+{#                                        <div class="close1"></div>#}
+                                        <li class="ring-in"><a href="{% url 'main:single' %}" ><img src="/media/{{ item.product.image }}" class="img-responsive" alt="{{ item.product.short_desc }}"></a>
+                                        </li>
+                                        <li><span class="name">{{ item.product.name }}</span></li>
+                                        <li><span class="cost">{{ item.product.price }}</span></li>
+                                        <input type="number" name="{{ item.pk }}" min="0" max="{{ item.product.quantity }}"
+                                               value="{{ item.quantity }}">
+                                        <li><p>Delivered in 2-3 business days</p></li>
+                                        <li><a href="{% url 'basketapp:delete' item.pk %}">удалить</a></li>
+                                    <div class="clearfix"></div>
+
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+		 </div>
+		</div>
+	</div>
+	<!--end-ckeckout-->
+
+{% endblock %}

@@ -10,6 +10,7 @@ def get_menu():
     return ProductCategory.objects.all()
 
 
+
 def index(request):
     watches = [
         {
@@ -41,7 +42,6 @@ def index(request):
 
         },
     ]
-
     context = {
         'page_title': 'Luxury watches | Home page',
         'breadcrumbs_active': 'Home',
@@ -49,12 +49,6 @@ def index(request):
     }
     return render(request, 'mainapp/index.html', context)
 
-def checkout(request):
-    context = {
-        'page_title': 'Luxury watches | Basket',
-        'breadcrumbs_active': 'Basket'
-    }
-    return render(request, 'mainapp/checkout.html', context)
 
 def products(request):
     categories = ProductCategory.objects.all()
@@ -69,7 +63,6 @@ def catalog(request, pk):
     # try...
     #   category = ProductCategory.objects.get(pk=pk)
     # except...
-
     if pk == 0:
         category = {'pk': 0, 'name': 'все'}
         products = Product.objects.all()
@@ -81,7 +74,6 @@ def catalog(request, pk):
         'categories': get_menu(),
         'category': category,
         'products': products,
-
     }
     return render(request, 'mainapp/catalog.html', context)
 
@@ -89,21 +81,22 @@ def catalog(request, pk):
 def contact(request):
     context = {
         'page_title': 'Luxury watches | Contacts page',
-        'breadcrumbs_active': 'Contacts'
+        'breadcrumbs_active': 'Contacts',
     }
     return render(request, 'mainapp/contact.html', context)
 
 def single(request):
     context = {
         'page_title': 'Luxury watches | Product page',
-        'breadcrumbs_active': 'Product'
+        'breadcrumbs_active': 'Product',
     }
     return render(request, 'mainapp/single.html', context)
 
 def blog(request):
     context = {
         'page_title': 'Luxury watches | Our blog',
-        'breadcrumbs_active': 'Blog'
+        'breadcrumbs_active': 'Blog',
+
     }
     return render(request, 'mainapp/typo.html', context)
 

@@ -7,5 +7,6 @@ urlpatterns = [
     path('', basketapp.index, name='basketapp'),
     path('add/product/<int:pk>/', basketapp.add, name='add'),
     path('delete/basket/item/<int:pk>/', basketapp.delete, name='delete'),
+    path('delete/basket/item/all/', basketapp.delete_all, name='delete_all'),
     # re_path('^add/product/(?P<pk>\d+)/$', basketapp.add, name='add'),
 ]

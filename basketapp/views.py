@@ -10,13 +10,13 @@ from mainapp.models import Product
 @login_required
 def index(request):
     # basket_items = BasketItem.objects.filter(user=request.user)
-    basket_items = request.user.basketitem_set.all()
-    basket_cost = sum(item.product.price * item.quantity for item in basket_items)
+    basket_items = request.user.user_basket.all()
+
     context = {
         'page_title': 'Luxury watches | Basket',
         'breadcrumbs_active': 'Basket',
         'basket_items': basket_items,
-        'basket_cost': basket_cost,
+
     }
     return render(request, 'basketapp/checkout.html', context)
 
@@ -37,4 +37,12 @@ def add(request, pk):
 @login_required
 def delete(request, pk):
     basket = get_object_or_404(BasketItem, pk=pk).delete()
+    basket_items = request.user.user_basket.all()
     return HttpResponseRedirect(reverse('basketapp:basketapp'))
+
+@login_required
+def delete_all(request):
+    basket_items = BasketItem.objects.filter(user=request.user)
+    if basket_items:
+        BasketItem.objects.all().delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

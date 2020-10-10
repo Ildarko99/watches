@@ -1,57 +1,44 @@
+import random
+
 from django.shortcuts import render, get_object_or_404
 import json
-
 
 # Create your views here.
 # root is "mainapp/templates/" folder
 from mainapp.models import ProductCategory, Product
 
+
 def get_menu():
     return ProductCategory.objects.all()
 
 
+# возвращает лист рандомных продуктов из каталога, исп-я на Главной
+def random_products(request):
+    products_ids_list = Product.objects.values_list('id', flat=True)
+    random_products_ids_list = []
+    random_products_list = []
+    while len(random_products_ids_list)<4:
+        random_product_id = random.choice(products_ids_list)
+        if random_product_id not in random_products_ids_list:
+            random_products_ids_list.append(random_product_id)
+    for i in random_products_ids_list:
+        random_products_list.append(Product.objects.get(pk=i))
+    print(random_products_list)
+    return random_products_list
+
 
 def index(request):
-    watches = [
-        {
-            "image": "/static/images/p-1.png",
-            "name": "Casio",
-            "shot_descr": "Casio watches",
-            "price": "300$"
 
-        },
-        {
-            "image": "/static/images/p-2.png",
-            "name": "Candino",
-            "shot_descr": "Candino watches",
-            "price": "500$",
-
-        },
-        {
-            "image": "/static/images/p-3.png",
-            "name": "Patek",
-            "shot_descr": "Patek watches",
-            "price": "1000$",
-
-        },
-        {
-            "image": "/static/images/p-4.png",
-            "name": "Seiko",
-            "shot_descr": "Seiko watches",
-            "price": "450$",
-
-        },
-    ]
     context = {
         'page_title': 'Luxury watches | Home page',
         'breadcrumbs_active': 'Home',
-        'watches': watches,
+        'random_products': random_products(request),
     }
     return render(request, 'mainapp/index.html', context)
 
 
 def products(request):
-    categories = ProductCategory.objects.all()
+    # categories = ProductCategory.objects.all()
     context = {
         'page_title': 'Luxury watches | Our watches',
         'breadcrumbs_active': 'Products',
@@ -59,10 +46,12 @@ def products(request):
     }
     return render(request, 'mainapp/products.html', context)
 
+
 def catalog(request, pk):
     # try...
     #   category = ProductCategory.objects.get(pk=pk)
     # except...
+
     if pk == 0:
         category = {'pk': 0, 'name': 'все'}
         products = Product.objects.all()
@@ -85,12 +74,14 @@ def contact(request):
     }
     return render(request, 'mainapp/contact.html', context)
 
+
 def single(request):
     context = {
         'page_title': 'Luxury watches | Product page',
         'breadcrumbs_active': 'Product',
     }
     return render(request, 'mainapp/single.html', context)
+
 
 def blog(request):
     context = {
@@ -99,4 +90,3 @@ def blog(request):
 
     }
     return render(request, 'mainapp/typo.html', context)
-

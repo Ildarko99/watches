@@ -37,6 +37,7 @@ def add(request, pk):
 @login_required
 def delete(request, pk):
     basket = get_object_or_404(BasketItem, pk=pk).delete()
+    # basket_items = request.user.basketitem_set.all() если не задано RELATED_NAME в классе BasketItem
     basket_items = request.user.user_basket.all()
     return HttpResponseRedirect(reverse('basketapp:basketapp'))
 

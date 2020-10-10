@@ -84,7 +84,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<a href="{% url 'basketapp:basketapp' %}">
 							 <div class="total">
 {#                                 simpleCart_total#}
-								<span class="Basket_summ">{{ user.basket_cost }}</span></div>
+								<span class="Basket_summ">{{ user.basket_total_quantity }} pcs {{ user.basket_cost|floatformat:2 }}$</span></div>
 								<img src="{% static 'images/cart-1.png' %}" alt="" />
 						</a>
 						<p><a href="{% url 'basketapp:delete_all' %}" class="simpleCart_empty">Empty Cart</a></p>

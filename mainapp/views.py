@@ -5,6 +5,8 @@ import json
 
 # Create your views here.
 # root is "mainapp/templates/" folder
+from django.urls import ResolverMatch
+
 from mainapp.models import ProductCategory, Product
 
 
@@ -20,7 +22,8 @@ def random_products(request):
     products_ids_list = Product.objects.values_list('id', flat=True)
     random_products_ids_list = []
     random_products_list = []
-    while len(random_products_ids_list)<4:
+    qty = 4 if request.resolver_match.url_name == 'index' else 6
+    while len(random_products_ids_list)<qty:
         random_product_id = random.choice(products_ids_list)
         if random_product_id not in random_products_ids_list:
             random_products_ids_list.append(random_product_id)
@@ -49,6 +52,7 @@ def products(request):
         'page_title': 'Luxury watches | Our watches',
         'breadcrumbs_active': 'Products',
         'categories': get_menu(),
+        'random_products': random_products(request),
     }
     return render(request, 'mainapp/products.html', context)
 

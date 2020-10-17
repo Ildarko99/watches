@@ -26,6 +26,7 @@ urlpatterns = [
     path('products/', mainapp.products, name='products'),
 
     path('category/<int:pk>/products/', mainapp.catalog, name='catalog'),
+    path('products/<int:pk>/', mainapp.product_page, name='product_page'),
     # re_path(r'^category/(?P<pk>\d+)/products/$', mainapp.catalog, name='catalog'), как вариант через регулярки
 
     path('single/', mainapp.single, name='single'),

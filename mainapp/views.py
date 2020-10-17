@@ -9,6 +9,9 @@ from mainapp.models import ProductCategory, Product
 
 
 def get_menu():
+    test = ProductCategory.objects.all()
+    print(type(test))
+    print(test)
     return ProductCategory.objects.all()
 
 
@@ -23,7 +26,9 @@ def random_products(request):
             random_products_ids_list.append(random_product_id)
     for i in random_products_ids_list:
         random_products_list.append(Product.objects.get(pk=i))
-    print(random_products_list)
+    # print(type(random_products_list))
+    # print(random_products_list)
+    # print(random_products_list[0].pk)
     return random_products_list
 
 
@@ -33,6 +38,7 @@ def index(request):
         'page_title': 'Luxury watches | Home page',
         'breadcrumbs_active': 'Home',
         'random_products': random_products(request),
+
     }
     return render(request, 'mainapp/index.html', context)
 
@@ -46,8 +52,17 @@ def products(request):
     }
     return render(request, 'mainapp/products.html', context)
 
+def product_page(request, pk):
+    context = {
+        'page_title': 'Luxury watches | Product page',
+        'breadcrumbs_active': 'Products / Product page',  #нужно доделать динамику
+        'categories': get_menu(),
+        'product': get_object_or_404(Product, pk=pk),
+    }
+    return render(request, 'mainapp/single.html', context)
 
-def catalog(request, pk):
+
+def catalog(request, pk):       #генерит меню каталога -> ссылки на категории
     # try...
     #   category = ProductCategory.objects.get(pk=pk)
     # except...
@@ -67,6 +82,9 @@ def catalog(request, pk):
     return render(request, 'mainapp/catalog.html', context)
 
 
+
+
+
 def contact(request):
     context = {
         'page_title': 'Luxury watches | Contacts page',
@@ -78,7 +96,7 @@ def contact(request):
 def single(request):
     context = {
         'page_title': 'Luxury watches | Product page',
-        'breadcrumbs_active': 'Product',
+        'breadcrumbs_active': 'Products / Product page',
     }
     return render(request, 'mainapp/single.html', context)
 

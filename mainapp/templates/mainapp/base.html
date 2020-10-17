@@ -101,32 +101,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 {% endblock %}
 	<!--start-logo-->
 	<!--bottom-header-->
-	<div class="header-bottom">
-		<div class="container">
-			<div class="header">
-				<div class="col-md-9 header-left">
-				<div class="top-nav">
-					<ul class="memenu skyblue"><li class="active"><a href="/">Home</a></li>
-						<li class="grid"><a href="{% url 'main:products' %}">Products</a>
-
-						<li class="grid"><a href="{% url 'main:blog' %}">Blog</a>
-						</li>
-						<li class="grid"><a href="{% url 'main:contact' %}">Contact</a>
-						</li>
-					</ul>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="col-md-3 header-right">
-				<div class="search-bar">
-					<input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-					<input type="submit" value="">
-				</div>
-			</div>
-			<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
+	{% include 'mainapp/includes/inc__main_horizontal_menu.html' %}
 
 
 {% block container %}

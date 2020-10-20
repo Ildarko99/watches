@@ -34,8 +34,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{% static 'js/jquery-1.11.0.min.js'%}"></script>
 <!--dropdown-->
 <script src="{% static 'js/jquery.easydropdown.js' %}"></script>
+  <!--basket_script-->
+<script src="{% static 'js/basket_script.js' %}"></script>
+
     {% endblock %}
 
+{% include 'mainapp/includes/inc__breadcrumbs.html' %}
 </head>
 <body>
 	<!--top-header-->
@@ -102,15 +106,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	{% include 'mainapp/includes/inc__main_horizontal_menu.html' %}
 
 
-{% block container %}
-    {% block main_title %}
-        <!--Где это место?-->
-	<div class="logo">
-		<a href="/"><h1>Luxury Watches</h1></a>
-	</div>
-    {% endblock %}
-{% endblock %}
+<!--start-ckeckout-->
+<div class="ckeckout">
+    <div class="container">
+        <div class="ckeck-top heading">
+            <h2>CHECKOUT</h2>
+        </div>
+        <div class="ckeckout-top">
+            <div class="cart-items">
+                 <h3>My Shopping Bag</h3>
+                <div class="in-check" >
+                    <ul class="unit">
+                        <li><span>Item</span></li>
+                        <li><span>Product Name</span></li>
+                        <li><span>Unit Price</span></li>
+                        <li><span>Delivery Details</span></li>
+                        <li> </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                    <ul class="cart-header">
 
+                        {% block container %}
+
+                        {% endblock %}
+
+                    </ul>
+                </div>
+            </div>
+     </div>
+    </div>
+</div>
+
+<!--end-ckeckout-->
 	<!--information-starts-->
 	<div class="information">
 		<div class="container">

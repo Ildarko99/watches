@@ -1,6 +1,8 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 {% block js %}
+    <!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
+<script src="{% static 'js/jquery-1.11.0.min.js'%}"></script>
 <script src="{% static 'js/jquery.easydropdown.js' %}"></script>
 <script type="text/javascript">
 	$(function() {

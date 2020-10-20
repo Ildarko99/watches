@@ -1,0 +1,16 @@
+{% for item in basket_items %}
+        <li class="ring-in"><a href="{% url 'main:single' %}" ><img src="/media/{{ item.product.image }}" class="img-responsive" alt="{{ item.product.short_desc }}"></a>
+        </li>
+        <li><span class="name">{{ item.product.name }}</span></li>
+        <li><span class="cost">{{ item.product.price }}</span></li>
+        <input class="product_qty" type="number" name="{{ item.pk }}" min="0" max="{{ item.product.quantity }}"
+               value="{{ item.quantity }}">
+        <li><p>Delivered in 2-3 business days</p></li>
+        <li><a href="{% url 'basketapp:delete' item.pk %}">удалить</a></li>
+    <div class="clearfix"></div>
+{% endfor %}
+<br>
+<div class="basket_summary">
+    В корзине {{ user.basket_total_quantity }} товаров общей стоимостью
+    {{ user.basket_cost }} USD
+</div>

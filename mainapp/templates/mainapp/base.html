@@ -68,6 +68,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 {{ user.first_name|default:'Пользователь' }}
                             </a>
                             {% endif %}
+                        {% if user.is_superuser %}
+                            <a href="{% url 'my_admin:index' %}">
+                                Админка
+                            </a>
+                            {% endif %}
                         {% if user.is_authenticated %}
                             <a href="{% url 'auth:logout' %}">Выход</a>
                             {% else %}

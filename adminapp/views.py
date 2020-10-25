@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView
 
 from adminapp.forms import AdminShopUserCreateForm, AdminShopUserUpdateForm
@@ -22,9 +23,23 @@ def index(request):
 
     return render(request, 'adminapp/templates/authapp/shopuser_list.html', context)
 
+class OnlySuperUserMixin: #добавляя этот миксин в класс можем давать доступ только супер-юзеру
+    @method_decorator(user_passes_test(lambda x: x.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
-class UsersList(ListView):
+class PageTitleMixin: #добавляя этот миксин в класс можем получать к контекст page title
+    def get_context_data(self, *, object_list=None, **kwargs):
+        data = super().get_context_data(**kwargs, object_list=None)
+        data['page_title'] = self.page_title
+        return data
+
+class UsersList(OnlySuperUserMixin, PageTitleMixin, ListView):
+    page_title = 'админка/пользователи'
     model = get_user_model()
+
+
+
 
 @user_passes_test(lambda x: x.is_superuser)
 def user_create(request):
@@ -91,8 +106,10 @@ def user_delete(request, pk):
 
 # FBV vs CBV
 
-class CategoriesRead(ListView):
+class CategoriesRead(OnlySuperUserMixin, PageTitleMixin, ListView): #выводит список категорий в админке
     model = ProductCategory
+    page_title = 'Админка/Категории'
+
     # template_name = 'adminapp/productcategory_list.html'
     # """Mixin for responding with a template and list of objects."""
     # template_name_suffix = '_list' Поэтому можно не писать имя шаблона, если оно называется по имени модели с суффиксом '_list'

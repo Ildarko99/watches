@@ -2,11 +2,11 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 
-from adminapp.forms import AdminShopUserCreateForm, AdminShopUserUpdateForm
+from adminapp.forms import AdminShopUserCreateForm, AdminShopUserUpdateForm, AdminProductCategoryCreateForm
 from mainapp.models import ProductCategory
 
 
@@ -106,10 +106,18 @@ def user_delete(request, pk):
 
 # FBV vs CBV
 
-class CategoriesRead(OnlySuperUserMixin, PageTitleMixin, ListView): #выводит список категорий в админке
+class ProductCategoriesRead(OnlySuperUserMixin, PageTitleMixin, ListView): #выводит список категорий в админке
     model = ProductCategory
     page_title = 'Админка/Категории'
 
+
+class ProductCategoryCreate(OnlySuperUserMixin, PageTitleMixin, CreateView):  # выводит список категорий в админке
+    model = ProductCategory
+    page_title = 'Админка/Категории/создание'
+    success_url = reverse_lazy('my_admin:index')
+
+    # fields = '__all__'
+    form_class = AdminProductCategoryCreateForm
     # template_name = 'adminapp/productcategory_list.html'
     # """Mixin for responding with a template and list of objects."""
     # template_name_suffix = '_list' Поэтому можно не писать имя шаблона, если оно называется по имени модели с суффиксом '_list'

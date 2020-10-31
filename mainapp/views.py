@@ -1,5 +1,6 @@
 import random
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
 import json
 
@@ -17,12 +18,12 @@ def get_menu():
     return ProductCategory.objects.all()
 
 
-# возвращает лист рандомных продуктов из каталога, исп-я на Главной
+# возвращает лист рандомных продуктов из каталога, исп-я на Главной и в каталоге
 def random_products(request):
     products_ids_list = Product.objects.values_list('id', flat=True)
     random_products_ids_list = []
     random_products_list = []
-    qty = 4 if request.resolver_match.url_name == 'index' else 6
+    qty = 4 if request.resolver_match.url_name == 'index' else 6 #4 для Главной, 6 для страницы products
     while len(random_products_ids_list)<qty:
         random_product_id = random.choice(products_ids_list)
         if random_product_id not in random_products_ids_list:
@@ -46,13 +47,24 @@ def index(request):
     return render(request, 'mainapp/index.html', context)
 
 
-def products(request):
+def products(request, page=1):
     # categories = ProductCategory.objects.all()
+
+    products = random_products(request)
+    print(products)
+    products_paginator = Paginator(products, 3)
+    try:
+        products = products_paginator.page(page)
+    except PageNotAnInteger:
+        products = products_paginator.page(1)
+    except EmptyPage:
+        products = products_paginator.page(products_paginator.num_pages)
+
     context = {
         'page_title': 'Luxury watches | Our watches',
         'breadcrumbs_active': 'Products',
         'categories': get_menu(),
-        'random_products': random_products(request),
+        'random_products': products,
     }
     return render(request, 'mainapp/products.html', context)
 
@@ -66,7 +78,7 @@ def product_page(request, pk):
     return render(request, 'mainapp/single.html', context)
 
 
-def catalog(request, pk):       #генерит меню каталога -> ссылки на категории
+def catalog(request, pk, page=1):       #генерит меню каталога -> ссылки на категории
     # try...
     #   category = ProductCategory.objects.get(pk=pk)
     # except...
@@ -77,6 +89,16 @@ def catalog(request, pk):       #генерит меню каталога -> с�
     else:
         category = get_object_or_404(ProductCategory, pk=pk)
         products = Product.objects.filter(category=category)
+
+    products_paginator = Paginator(products, 2)
+    try:
+        products = products_paginator.page(page)
+    except PageNotAnInteger:
+        products = products_paginator.page(1)
+    except EmptyPage:
+        products = products_paginator.page(products_paginator.num_pages)
+
+
     context = {
         'page_title': 'Luxury watches | Products',
         'categories': get_menu(),
@@ -97,7 +119,7 @@ def contact(request):
     return render(request, 'mainapp/contact.html', context)
 
 
-def single(request):
+def single(request): #уже не исп-я TODO на карточке товара убрать харкодные товары и выключить и убрать из urls
     context = {
         'page_title': 'Luxury watches | Product page',
         'breadcrumbs_active': 'Products / Product page',

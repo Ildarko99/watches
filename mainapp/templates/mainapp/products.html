@@ -9,6 +9,20 @@
 {% block title %}
     <div class="logo clearfix">
         <h2>Продукты в категории {{ category.name|capfirst }}</h2>
+
+            <div class="paginator">
+                    {% if random_products.has_previous %}
+                        <a href="{% url 'mainapp:products_page' page=random_products.previous_page_number %}">
+                            <
+                        </a>
+                    {% endif %}
+                    <span class="current">страница {{ random_products.number }} из {{ random_products.paginator.num_pages }}</span>
+                    {% if random_products.has_next %}
+                        <a href="{% url 'mainapp:products_page' page=random_products.next_page_number %}">
+                            >
+                        </a>
+                    {% endif %}
+            </div>
     </div>
 {% endblock %}
 

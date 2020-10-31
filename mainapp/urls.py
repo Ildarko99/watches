@@ -22,13 +22,17 @@ app_name = 'mainapp'
 
 urlpatterns = [
     path('', mainapp.index, name='index'),
-    path('contact/', mainapp.contact, name='contact'),
     path('products/', mainapp.products, name='products'),
+    path('products/<page>/', mainapp.products, name='products_page'),
 
-    path('category/<int:pk>/products/', mainapp.catalog, name='catalog'),
+    # path('category/<int:pk>/products/', mainapp.catalog, name='catalog'),
+    re_path(r'^category/(?P<pk>\d+)/products/$', mainapp.catalog, name='catalog'), #как вариант через регулярки
+    re_path(r'^category/(?P<pk>\d+)/products/page/(?P<page>\d+)/$', mainapp.catalog, name='catalog_page'),
+
     path('products/<int:pk>/', mainapp.product_page, name='product_page'),
-    # re_path(r'^category/(?P<pk>\d+)/products/$', mainapp.catalog, name='catalog'), как вариант через регулярки
 
-    path('single/', mainapp.single, name='single'),
+
+    path('contact/', mainapp.contact, name='contact'),
+    path('single/', mainapp.single, name='single'), #уже не исп-я TODO на карточке товара убрать харкодные товары и выключить и убрать из urls
     path('blog/', mainapp.blog, name='blog'),
 ]

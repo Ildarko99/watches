@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from authapp.forms import forms
-from mainapp.models import ProductCategory
+from mainapp.models import ProductCategory, Product
 
 
 class FormControlMixin():
@@ -74,4 +74,9 @@ class AdminProductCategoryCreateForm(FormControlMixin, forms.ModelForm):
     #     super().__init__(*args, **kwargs)
     #     for field_name, field in self.fields.items():
     #         field.widget.attrs['class'] = 'form-control'
+
+class AdminProductUpdateForm(FormControlMixin, forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = '__all__'
 

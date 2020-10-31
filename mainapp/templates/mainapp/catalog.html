@@ -1,5 +1,7 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
+{% load my_tags %}
+
 {% block container %}
 
 <!--bottom-header-->
@@ -34,7 +36,7 @@
                         {% for product in products %}
                             <div class="col-md-4 product-left p-left">
                                 <div class="product-main simpleCart_shelfItem">
-                                    <a href="{% url 'main:product_page' product.pk %}" class="mask"><img class="img-responsive zoom-img" src="/media/{{ product.image }}" alt="" /></a>
+                                    <a href="{% url 'main:product_page' product.pk %}" class="mask"><img class="img-responsive zoom-img" src="{{ product.image|media_folder_products }}" alt="" /></a>
                                     <div class="product-bottom">
                                         <h3>{{ product.name }}</h3>
                                         <p>{{ product.short_desc }}</p>

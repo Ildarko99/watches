@@ -1,3 +1,5 @@
+{% load my_tags %}
+
 <div class="product">
     <div class="container">
         <div class="product-top">
@@ -5,7 +7,7 @@
                 {% for product in random_products %}
                         <div class="col-md-3 product-left">
                             <div class="product-main simpleCart_shelfproduct">
-                                <a href="{% url 'main:product_page' product.pk %}"class="mask"><img class="img-responsive zoom-img" src="/media/{{ product.image }}" alt="" /></a>
+                                <a href="{% url 'main:product_page' product.pk %}"class="mask"><img class="img-responsive zoom-img" src="{{ product.image|media_folder_products }}" alt="" /></a>
                                 <div class="product-bottom">
                                     <h3>{{ product.name }}</h3>
                                     <p>{{ product.shot_descr }}</p>

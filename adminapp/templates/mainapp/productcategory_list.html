@@ -17,11 +17,11 @@
                        class="btn btn-info">
                         товары категории
                     </a>
-                    <a href="{#% url 'my_admin:category_update' object.pk %#}"
+                    <a href="{% url 'my_admin:category_update' object.pk %}"
                        class="btn btn-success">
                         редактировать
                     </a>
-                    <a href="{#% url 'my_admin:category_delete' object.pk %#}"
+                    <a href="{% url 'my_admin:category_delete' object.pk %}"
                        class="btn btn-danger">
                         удалить
                     </a>

@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from adminapp.forms import AdminShopUserCreateForm, AdminShopUserUpdateForm, AdminProductCategoryCreateForm
 from mainapp.models import ProductCategory
@@ -23,22 +23,23 @@ def index(request):
 
     return render(request, 'adminapp/templates/authapp/shopuser_list.html', context)
 
-class OnlySuperUserMixin: #добавляя этот миксин в класс можем давать доступ только супер-юзеру
+
+class OnlySuperUserMixin:  # добавляя этот миксин в класс можем давать доступ только супер-юзеру
     @method_decorator(user_passes_test(lambda x: x.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
-class PageTitleMixin: #добавляя этот миксин в класс можем получать к контекст page title
+
+class PageTitleMixin:  # добавляя этот миксин в класс можем получать к контекст page title
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super().get_context_data(**kwargs, object_list=None)
         data['page_title'] = self.page_title
         return data
 
+
 class UsersList(OnlySuperUserMixin, PageTitleMixin, ListView):
     page_title = 'админка/пользователи'
     model = get_user_model()
-
-
 
 
 @user_passes_test(lambda x: x.is_superuser)
@@ -106,7 +107,7 @@ def user_delete(request, pk):
 
 # FBV vs CBV
 
-class ProductCategoriesRead(OnlySuperUserMixin, PageTitleMixin, ListView): #выводит список категорий в админке
+class ProductCategoriesRead(OnlySuperUserMixin, PageTitleMixin, ListView):  # выводит список категорий в админке
     model = ProductCategory
     page_title = 'Админка/Категории'
 
@@ -114,9 +115,9 @@ class ProductCategoriesRead(OnlySuperUserMixin, PageTitleMixin, ListView): #вы
 class ProductCategoryCreate(OnlySuperUserMixin, PageTitleMixin, CreateView):  # выводит список категорий в админке
     model = ProductCategory
     page_title = 'Админка/Категории/создание'
-    success_url = reverse_lazy('my_admin:index')
+    success_url = reverse_lazy('my_admin:categories_read')
 
-    # fields = '__all__'
+    # fields = '__all__' можно так, можно как ниже
     form_class = AdminProductCategoryCreateForm
     # template_name = 'adminapp/productcategory_list.html'
     # """Mixin for responding with a template and list of objects."""
@@ -124,3 +125,23 @@ class ProductCategoryCreate(OnlySuperUserMixin, PageTitleMixin, CreateView):  # 
 
     # context_object_name = 'categories_list'  дефолтом Джанго забрасывает под именем object_list
     #                                          поэтому в шаблоне будем исп-ть object_list
+
+
+class ProductCategoryUpdate(OnlySuperUserMixin, PageTitleMixin, UpdateView):  # выводит список категорий в админке
+    model = ProductCategory
+    page_title = 'Админка/Категории/Редактирование'
+    success_url = reverse_lazy('my_admin:categories_read')
+    form_class = AdminProductCategoryCreateForm
+    pk_url_kwarg = 'category_pk'
+
+
+class ProductCategoryDelete(OnlySuperUserMixin, PageTitleMixin, DeleteView):  # выводит список категорий в админке
+    model = ProductCategory
+    page_title = 'Админка/Категории/Удаление'
+    success_url = reverse_lazy('my_admin:categories_read')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())

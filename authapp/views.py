@@ -1,9 +1,37 @@
+from django.conf import settings
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import auth
 from django.urls import reverse
 
 from authapp.forms import ShopUserAuthenticationForm, ShopUserRegisterForm, ShopUserProfileForm
+from authapp.models import ShopUser
+
+def send_verification_email(user):
+    verify_link = reverse('auth:verify', args=[user.email, user.activation_key])
+
+    subject = f'Активация пользователя {user.username}'
+
+    message = f'Для подтверждения перейдите по ссылке:\n {settings.DOMAIN_NAME}{verify_link}'
+
+    return send_mail(subject, message, settings.DOMAIN_NAME, [user.email], fail_silently=False) #send_mail метод из стандартного набора
+
+
+def verify(request, email, activation_key):
+    try:
+        user = ShopUser.objects.get(email=email)
+        if user.activation_key == activation_key and not user.is_activation_key_expired():
+            user.is_active = True
+            user.save()
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return render(request, 'authapp/verification.html')
+        else:
+            print(f'error: activation user: {email}') #логирование
+            return render(request, 'authapp/verification.html')
+    except Exception as e:
+        print(e.args)
+        return HttpResponseRedirect(reverse('main:index'))
 
 
 def login(request):
@@ -13,7 +41,6 @@ def login(request):
         form = ShopUserAuthenticationForm(data=request.POST)
 
         if form.is_valid():
-
             username = request.POST['username']
             password = request.POST['password']
             user = auth.authenticate(username=username, password=password)
@@ -40,16 +67,20 @@ def logout(request):
     return HttpResponseRedirect(reverse('main:index'))
 
 def user_register(request):
+    title = 'регистрация'
     if request.method == 'POST':
-        user = ShopUserRegisterForm(request.POST, request.FILES)
-        if user.is_valid():
-            user.save()
-            return HttpResponseRedirect(reverse('authapp:login'))
+        register_form = ShopUserRegisterForm(request.POST, request.FILES)
+        if register_form.is_valid():
+            user = register_form.save()
+            if send_verification_email(user):
+                print('succes')
+                return HttpResponseRedirect(reverse('authapp:login'))
     else:
-        user = ShopUserRegisterForm()
+        print('error')
+        register_form = ShopUserRegisterForm()
     context = {
         'page_title': 'регистрация',
-        'form': user
+        'form': register_form,
     }
     return render(request, 'authapp/register.html', context)
 

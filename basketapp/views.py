@@ -62,7 +62,6 @@ def delete_all(request):
 def change(request, pk, quantity):
     if request.is_ajax():
         basket_item = BasketItem.objects.filter(pk=pk).first()
-        print(basket_item)
         if quantity == 0:
             basket_item.delete()
         else:

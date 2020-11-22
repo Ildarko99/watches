@@ -1,11 +1,12 @@
 from django.conf import settings
 from django.core.mail import send_mail
+from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import auth
 from django.urls import reverse
 
-from authapp.forms import ShopUserAuthenticationForm, ShopUserRegisterForm, ShopUserProfileForm
+from authapp.forms import ShopUserAuthenticationForm, ShopUserRegisterForm, ShopUserEditForm, ShopUserProfileEditForm
 from authapp.models import ShopUser
 
 def send_verification_email(user):
@@ -55,10 +56,14 @@ def login(request):
     else:
 
         form = ShopUserAuthenticationForm()
+    from_register = request.session.get('register', None)
+    if from_register:
+        del request.session['register']
     context = {
         'page_title': 'аутентификация',
         'form': form,
         'redirect_url': redirect_url,
+        'from_register': from_register,
     }
     return render(request, 'authapp/login.html', context)
 
@@ -73,6 +78,7 @@ def user_register(request):
         if register_form.is_valid():
             user = register_form.save()
             if send_verification_email(user):
+                request.session['register'] = True
                 print('succes')
                 return HttpResponseRedirect(reverse('authapp:login'))
     else:
@@ -84,16 +90,26 @@ def user_register(request):
     }
     return render(request, 'authapp/register.html', context)
 
+@transaction.atomic() #в случае, если операция не завершилась успешно, делает откат в БД
 def user_profile(request):
+
     if request.method == 'POST':
-        user = ShopUserProfileForm(request.POST, request.FILES, instance=request.user)
-        if user.is_valid():
+        user = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
+        profile_form = ShopUserProfileEditForm(request.POST, instance=request.user.shopuserprofile)
+        if user.is_valid() and profile_form.is_valid():
+            # with transaction.atomic(): пример исп-я декоратора внутри ф-ции
+                        # smth_to.save() для примера исп-я декоратора внутри ф-ции
+                        # user.save()
+                        #etc
             user.save()
             return HttpResponseRedirect(reverse('main:index'))
     else:
-        user = ShopUserProfileForm(instance=request.user) #если в Джанго не передавать instance, то он будет пытаться создавать новый объект
+        user = ShopUserEditForm(instance=request.user) #если в Джанго не передавать instance, то он будет пытаться создавать новый объект
+        profile_form = ShopUserProfileEditForm(instance=request.user.shopuserprofile)
+
     context = {
         'page_title': 'профиль',
-        'form': user
+        'form': user,
+        'profile_form': profile_form
     }
     return render(request, 'authapp/profile.html', context)

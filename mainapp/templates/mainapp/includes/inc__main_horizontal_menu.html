@@ -9,9 +9,50 @@
                     <li class="grid {% if request.resolver_match.url_name == 'products' %}active{% endif %}"><a href="{% url 'main:products' %}">Products</a></li>
 
                     <li class="grid {% if request.resolver_match.url_name == 'blog' %}active{% endif %}"><a href="{% url 'main:blog' %}">Blog</a></li>
-                    <li class="grid {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"><a href="{% url 'main:contact' %}">Contacts</a></li>                  </li>
-                </ul>
-            </div>
+                    <li class="grid {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"><a href="{% url 'main:contact' %}">Contacts</a></li>
+                        {% if user.is_authenticated %}
+                    <li class="grid">
+                                <a href="" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        {{ user.first_name|default:'User' }}
+                                        <span class="caret"></span>
+                                    </a>
+
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="" href="{% url 'auth:user_profile' %}">
+                                            Profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="" href="{% url 'orderapp:orders_list' %}" >
+                                            Orders
+                                        </a>
+                                    </li>
+                                </ul>
+                    </li>
+
+                        {% endif %}
+
+                        {% if user.is_authenticated %}
+                            <li class="grid">
+                            <a href="{% url 'auth:logout' %}">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="grid">
+                                <a href="{% url 'auth:login' %}">Login</a>
+                            </li>
+
+                        {% endif %}
+                        {% if user.is_superuser %}
+                            <li class="grid">
+                                <a href="{% url 'my_admin:index' %}">
+                                    Админка
+                                </a>
+                            </li>
+                        {% endif %}
+                        </ul>
+
+                </div>
             <div class="clearfix"> </div>
         </div>
         <div class="col-md-3 header-right">

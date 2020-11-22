@@ -11,11 +11,8 @@ from django.urls import ResolverMatch
 from mainapp.models import ProductCategory, Product
 
 
-def get_menu():
-    test = ProductCategory.objects.all()
-    print(type(test))
-    print(test)
-    return ProductCategory.objects.all()
+# def get_menu():   #ушло в контекстный процессор context_processors.py
+#     return ProductCategory.objects.all()
 
 
 # возвращает лист рандомных продуктов из каталога, исп-я на Главной и в каталоге
@@ -51,7 +48,6 @@ def products(request, page=1):
     # categories = ProductCategory.objects.all()
 
     products = random_products(request)
-    print(products)
     products_paginator = Paginator(products, 3)
     try:
         products = products_paginator.page(page)
@@ -63,7 +59,7 @@ def products(request, page=1):
     context = {
         'page_title': 'Luxury watches | Our watches',
         'breadcrumbs_active': 'Products',
-        'categories': get_menu(),
+        # 'categories': get_menu(), #ушло в контекстный процессор context_processors.py
         'random_products': products,
     }
     return render(request, 'mainapp/products.html', context)
@@ -72,7 +68,7 @@ def product_page(request, pk):
     context = {
         'page_title': 'Luxury watches | Product page',
         'breadcrumbs_active': 'Products / Product page',  #нужно доделать динамику
-        'categories': get_menu(),
+        # 'categories': get_menu(), #ушло в контекстный процессор context_processors.py
         'product': get_object_or_404(Product, pk=pk),
     }
     return render(request, 'mainapp/single.html', context)
@@ -101,7 +97,7 @@ def catalog(request, pk, page=1):       #генерит меню каталог�
 
     context = {
         'page_title': 'Luxury watches | Products',
-        'categories': get_menu(),
+        # 'categories': get_menu(), #ушло в контекстный процессор context_processors.py
         'category': category,
         'products': products,
     }

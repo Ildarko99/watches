@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, User
 import django.forms as forms
 from django.utils.crypto import random
 
-from authapp.models import ShopUser
+from authapp.models import ShopUser, ShopUserProfile
 
 
 class ShopUserAuthenticationForm(AuthenticationForm):
@@ -47,8 +47,7 @@ class ShopUserRegisterForm(UserCreationForm):
         return user
 
 
-
-class ShopUserProfileForm(UserChangeForm):
+class ShopUserEditForm(UserChangeForm):
     class Meta:
         model = ShopUser
         fields = (
@@ -69,3 +68,16 @@ class ShopUserProfileForm(UserChangeForm):
         if age < 18:
             raise forms.ValidationError("Вы слишком молоды!")
         return age
+
+class ShopUserProfileEditForm(UserChangeForm):
+    class Meta:
+        model = ShopUserProfile
+        fields = (
+            'tagline', 'about_me', 'gender',
+        )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.help_text = ''

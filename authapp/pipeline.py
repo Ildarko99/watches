@@ -1,4 +1,4 @@
-
+import urllib.request
 from collections import OrderedDict
 from datetime import datetime
 from urllib.parse import urlencode, urlunparse
@@ -8,6 +8,7 @@ from django.utils import timezone
 from social_core.exceptions import AuthForbidden
 
 from authapp.models import ShopUserProfile
+from django.conf import settings
 
 
 def save_user_profile(backend, user, response, *args, **kwargs):
@@ -18,7 +19,7 @@ def save_user_profile(backend, user, response, *args, **kwargs):
                           'api.vk.com',
                           '/method/users.get',
                           None,
-                          urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about',)),
+                          urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about', 'photo_max_orig')),
                                                 access_token=response['access_token'],
                                                 v='5.92')),
                           None
@@ -42,5 +43,10 @@ def save_user_profile(backend, user, response, *args, **kwargs):
         if age < 18:
             user.delete()
             raise AuthForbidden('social_core.backends.vk.VKOAuth2')
+
+    if data['photo_max_orig']:
+        print(data['photo_max_orig'])
+        urllib.request.urlretrieve(data['photo_max_orig'], f'{settings.MEDIA_ROOT}/users_avatars/{user.pk}.jpg')
+        user.avatar = f'users_avatars/{user.pk}.jpg'
 
     user.save()

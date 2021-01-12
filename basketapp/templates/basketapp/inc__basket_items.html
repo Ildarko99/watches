@@ -10,7 +10,14 @@
     <div class="clearfix"></div>
 {% endfor %}
 <br>
+<div>
+    <a class="btn btn-round" href="{% url 'orderapp:order_create' %}">create order</a>
+    <a class="btn btn-round" href="{% url 'main:index' %}">main</a>
+</div>
+<br>
 <div class="basket_summary">
     В корзине {{ user.basket_total_quantity }} товаров общей стоимостью
     {{ user.basket_cost }} USD
 </div>
+
+{#TODO replace 'single' link from items in basket#}

@@ -10,7 +10,7 @@
     </title>
 
     {% block bootstrap %}
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
     {% endblock %}
 
     {% block themes %}
@@ -26,18 +26,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 {% endblock %}
 
     {% block startmenu %}
-    <!--start-menu-->
-<script src="{% static 'js/simpleCart.min.js' %}"> </script>
-<link href="{% static 'css/memenu.css' %}" rel="stylesheet" type="text/css" media="all" />
-{#<script type="text/javascript" src="{% static 'js/memenu.js' %}"></script>#}
-{#<script>$(document).ready(function(){$(".memenu").memenu();});</script>#}
+            <!--start-menu-->
+        <script src="{% static 'js/simpleCart.min.js' %}"> </script>
+        <link href="{% static 'css/memenu.css' %}" rel="stylesheet" type="text/css" media="all" />
+        {#<script type="text/javascript" src="{% static 'js/memenu.js' %}"></script>#}
+        {#<script>$(document).ready(function(){$(".memenu").memenu();});</script>#}
     {% endblock %}
 
     {% block js %}
-<!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
-<script src="{% static 'js/jquery-1.11.0.min.js'%}"></script>
-<!--dropdown-->
-<script src="{% static 'js/jquery.easydropdown.js' %}"></script>
+        <!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
+        <!--jQuery отсюда не ушло)-->
+        <script src="{% static 'js/jquery-1.11.0.min.js'%}"></script>
+        <script src="{% static 'js/orders_script.js'%}"></script>
+        <!--dropdown-->
+        <script src="{% static 'js/jquery.easydropdown.js' %}"></script>
     {% endblock %}
 
 </head>

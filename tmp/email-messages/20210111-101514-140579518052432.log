@@ -1,0 +1,13 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0JDQutGC0LjQstCw0YbQuNGPINC/0L7Qu9GM0LfQvtCy0LDRgtC10LvRjyB1c2Vy?=
+From: http://localhost:8000
+To: user@user.ru
+Date: Mon, 11 Jan 2021 07:15:14 -0000
+Message-ID: <161034931403.4722.2972423440950529621@ildar-ZenBook>
+
+Для подтверждения перейдите по ссылке:
+ http://localhost:8000/auth/verify/user@user.ru/f7160b7b2a2f46932dde6baee0065ce71c7d31aa/
+-------------------------------------------------------------------------------

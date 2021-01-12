@@ -32,6 +32,7 @@ def add(request, pk):
             )
         )
 
+    # old_basket_item = BasketItem.get_product(user=request.user, product=product) версия препода Маслова. У меня не работает.
     product = get_object_or_404(Product, pk=pk)
     basket = BasketItem.objects.filter(user=request.user, product=product).first()
 
@@ -40,8 +41,18 @@ def add(request, pk):
 
     basket.quantity += 1
     basket.save()
+
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+    # версия препода Маслова. У меня не работает.
+    #
+    # if old_basket_item:
+    #     old_basket_item[0].quantity += 1
+    #     old_basket_item[0].save(update_fields=['quantity', 'product'])
+    # else:
+    #     new_basket_item = BasketItem(user=request.user, product=product)
+    #     new_basket_item[0].quantity += 1
+    #     new_basket_item.save()
 
 @login_required
 def delete(request, pk):

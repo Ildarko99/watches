@@ -26,7 +26,7 @@ def get_product_price(request, pk):
 class OrderList(ListView):
     model = Order
 
-    def get_queryset(self):
+    def get_queryset(self): #переписали стандартный метод
         return Order.objects.filter(user=self.request.user)
 
     @method_decorator(login_required())

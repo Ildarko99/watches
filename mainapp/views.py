@@ -21,15 +21,13 @@ def random_products(request):
     random_products_ids_list = []
     random_products_list = []
     qty = 4 if request.resolver_match.url_name == 'index' else 6 #4 для Главной, 6 для страницы products
-    while len(random_products_ids_list)<qty:
+    while len(random_products_ids_list) < qty:
         random_product_id = random.choice(products_ids_list)
         if random_product_id not in random_products_ids_list:
             random_products_ids_list.append(random_product_id)
     for i in random_products_ids_list:
         random_products_list.append(Product.objects.get(pk=i))
-    # print(type(random_products_list))
-    # print(random_products_list)
-    # print(random_products_list[0].pk)
+
     return random_products_list
 
 
@@ -65,6 +63,9 @@ def products(request, page=1):
     return render(request, 'mainapp/products.html', context)
 
 def product_page(request, pk):
+
+    # category = get_object_or_404(ProductCategory, pk=pk)
+
     context = {
         'page_title': 'Luxury watches | Product page',
         'breadcrumbs_active': 'Products / Product page',  #нужно доделать динамику
@@ -86,7 +87,7 @@ def catalog(request, pk, page=1):       #генерит меню каталог�
         category = get_object_or_404(ProductCategory, pk=pk)
         products = Product.objects.filter(category=category)
 
-    products_paginator = Paginator(products, 2)
+    products_paginator = Paginator(products, 3)
     try:
         products = products_paginator.page(page)
     except PageNotAnInteger:

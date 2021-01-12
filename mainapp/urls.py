@@ -25,11 +25,11 @@ urlpatterns = [
     path('products/', mainapp.products, name='products'),
     path('products/<page>/', mainapp.products, name='products_page'),
 
-    # path('category/<int:pk>/products/', mainapp.catalog, name='catalog'),
+    path('category/<int:pk>/products/', mainapp.catalog, name='catalog'),
     re_path(r'^category/(?P<pk>\d+)/products/$', mainapp.catalog, name='catalog'), #как вариант через регулярки
     re_path(r'^category/(?P<pk>\d+)/products/page/(?P<page>\d+)/$', mainapp.catalog, name='catalog_page'),
 
-    path('products/<int:pk>/', mainapp.product_page, name='product_page'),
+    path('products/id/<int:pk>/', mainapp.product_page, name='product_page'),
 
 
     path('contact/', mainapp.contact, name='contact'),

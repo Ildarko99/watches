@@ -20,7 +20,7 @@
                             <td class="td1 orders_list">{{ item.pk }}</td>
                             <td>{{ item.created|date:"Y-m-d H:i:s" }}</td>
                             <td>{{ item.updated|date:"Y-m-d H:i:s" }}</td>
-                            <td>{{ item.get_status_display }}</td> {# специальный джанговский метод, выводиться будет status из models.py #}
+                            <td>{{ item.get_status_display }}</td> {# специальный джанговский метод, выводиться будет status из models.py  ORDER_STATUS_CHOICES #}
                             <td>
                                 <a href="{% url 'orderapp:order_read' item.pk %}">
                                     details
@@ -48,6 +48,9 @@
             <div>
                 <a href="{% url 'main:index' %}" class="btn btn-default btn-round">main</a>
                 <a href="{% url 'orderapp:order_create' %}" class="btn btn-default btn-round">new</a>
+            </div>
+            <div>
+                {{ request.resolver_match }}
             </div>
         </div>
     </div>

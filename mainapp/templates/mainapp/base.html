@@ -37,6 +37,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{% static 'js/bootstrap.min.js'%}"></script>
 <!--dropdown-->
 <script src="{% static 'js/jquery.easydropdown.js' %}"></script>
+<script src="{% static 'js/jquery.formset.js' %}"></script>
+<script src="{% static 'js/orders_script.js'%}"></script>
     {% endblock %}
 
 </head>
@@ -101,7 +103,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
     {% endblock %}
 {% endblock %}
-
+    {{ request.resolver_match }}
 	<!--information-starts-->
 	<div class="information">
 		<div class="container">
